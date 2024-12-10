@@ -1,4 +1,5 @@
 const examples = require("../models/examples");
+const CustomError = require("../classes/CustomError");
 
 function index(req, res) {
   const response = {
@@ -40,8 +41,7 @@ function update(req, res) {
   const id = parseInt(req.params.id);
   const item = exmples.find((item) => item.id === id);
   if (!item) {
-    res.status(404).json({ success: false, message: "Item non esiste" });
-    return;
+    throw new CustomError("L'elemento non esiste", 404);
   }
 
   //console.log(req.body);
@@ -61,11 +61,7 @@ function destroy(req, res) {
     menu.splice(index, 1);
     res.sendStatus(204);
   } else {
-    res.status(404);
-    res.json({
-      error: "404",
-      message: "Item non trovato",
-    });
+    throw new CustomError("L'elemento non esiste", 404);
   }
 }
 
