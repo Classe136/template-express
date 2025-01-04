@@ -49,6 +49,9 @@ const port = process.env.PORT || 3000;
 // create public directory inside root directory mkdir public
 app.use(express.static("public"));
 
+// register body-parser for "application/json"
+app.use(express.json()); 👈
+
 
 //add root route
 app.get("/", (req, res) => {
