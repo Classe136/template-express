@@ -15,6 +15,9 @@ app.use(express.static("public"));
 
 app.use(corsPolicy);
 
+// registro il body-parser per "application/json"
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
