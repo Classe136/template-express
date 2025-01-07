@@ -20,17 +20,17 @@ function show(req, res) {
 
 function store(req, res) {
   let newId = 0;
-  for (let i = 0; i < menu.length; i++) {
-    if (menu[i].id > newId) {
-      newId = menu[i].id;
+  for (let i = 0; i < examples.length; i++) {
+    if (examples[i].id > newId) {
+      newId = examples[i].id;
     }
   }
   newId += 1;
-
+  console.log(req.body);
   // new data is in req.body
   const newItem = {
     id: newId,
-    title: req.body.title,
+    ...req.body,
   };
 
   examples.push(newItem);
@@ -39,7 +39,7 @@ function store(req, res) {
 
 function update(req, res) {
   const id = parseInt(req.params.id);
-  const item = exmples.find((item) => item.id === id);
+  const item = examples.find((item) => item.id === id);
   if (!item) {
     throw new CustomError("L'elemento non esiste", 404);
   }
@@ -56,9 +56,9 @@ function update(req, res) {
 }
 function destroy(req, res) {
   const id = parseInt(req.params.id);
-  const index = example.findIndex((item) => item.id === id);
+  const index = examples.findIndex((item) => item.id === id);
   if (index !== -1) {
-    menu.splice(index, 1);
+    examples.splice(index, 1);
     res.sendStatus(204);
   } else {
     throw new CustomError("L'elemento non esiste", 404);
