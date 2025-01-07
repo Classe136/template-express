@@ -1,10 +1,10 @@
 import express from "express";
 
 //Other imports
-import errorsHandler from "./middlewares/errorsHandler";
-import notFound from "./middlewares/notFound";
-import corsPolicy from "./middlewares/corsPolicy";
-import examplesRouter from "./routes/examples";
+import errorsHandler from "./middlewares/errorsHandler.js";
+import notFound from "./middlewares/notFound.js";
+import corsPolicy from "./middlewares/corsPolicy.js";
+import examplesRouter from "./routes/examples.js";
 // create a server instance
 const app = express();
 

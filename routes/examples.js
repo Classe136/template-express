@@ -1,5 +1,5 @@
-import express from 'express';
-import router from express.Router();
+import express from "express";
+const router = express.Router();
 
 import {
   index,
@@ -7,7 +7,7 @@ import {
   store,
   update,
   destroy,
-} from "../controllers/exampleController";
+} from "../controllers/exampleController.js";
 //Rotte
 
 // Index - Read all

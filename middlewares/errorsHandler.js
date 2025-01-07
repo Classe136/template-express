@@ -1,4 +1,4 @@
-export default function errorsHandler(err, req, res, next) {
+function errorsHandler(err, req, res, next) {
   console.log(err.stack.split("\n")[0], "err:" + err.stack.split("\n")[1]);
   //console.log(err);
   res.status(err.statusCode || 500);
@@ -7,3 +7,4 @@ export default function errorsHandler(err, req, res, next) {
     error: err.message,
   });
 }
+export default errorsHandler;

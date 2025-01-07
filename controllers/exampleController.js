@@ -1,5 +1,5 @@
-import { pizzas as examples } from "../models/examples";
-import CustomError from "../classes/CustomError";
+import { pizzas as examples } from "../models/examples.js";
+import CustomError from "../classes/CustomError.js";
 
 function index(req, res) {
   const response = {
