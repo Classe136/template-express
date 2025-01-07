@@ -1,5 +1,5 @@
-const examples = require("../models/examples");
-const CustomError = require("../classes/CustomError");
+import { pizzas as examples } from "../models/examples";
+import CustomError from "../classes/CustomError";
 
 function index(req, res) {
   const response = {
@@ -65,4 +65,4 @@ function destroy(req, res) {
   }
 }
 
-module.exports = { index, show, store, update, destroy };
+export { index, show, store, update, destroy };

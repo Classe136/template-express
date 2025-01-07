@@ -58,4 +58,4 @@ const pizzas = [
     ],
   },
 ];
-module.exports = pizzas;
+export { pizzas };

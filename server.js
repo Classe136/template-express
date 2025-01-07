@@ -1,16 +1,15 @@
-const express = require("express");
+import express from "express";
+
+//Other imports
+import errorsHandler from "./middlewares/errorsHandler";
+import notFound from "./middlewares/notFound";
+import corsPolicy from "./middlewares/corsPolicy";
+import examplesRouter from "./routes/examples";
 // create a server instance
 const app = express();
 
 // set costant to port
 const port = process.env.PORT || 3000;
-
-//Other imports
-const errorsHandler = require("./middlewares/errorsHandles");
-const notFound = require("./middlewares/notFound");
-const corsPolicy = require("./middlewares/corsPolicy");
-const examplesRouter = require("./routes/examples");
-
 app.use(express.static("public"));
 
 app.use(corsPolicy);

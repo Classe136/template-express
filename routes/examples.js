@@ -1,13 +1,13 @@
-const express = require("express");
-const router = express.Router();
+import express from 'express';
+import router from express.Router();
 
-const {
+import {
   index,
   show,
   store,
   update,
   destroy,
-} = require("../controllers/exampleController");
+} from "../controllers/exampleController";
 //Rotte
 
 // Index - Read all
@@ -31,4 +31,4 @@ router.put("/:id", update);
 router.delete("/:id", destroy);
 
 //export router
-module.exports = router;
+export default router;
