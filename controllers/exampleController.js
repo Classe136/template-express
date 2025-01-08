@@ -1,17 +1,22 @@
-import { pizzas as examples } from "../models/examples.js";
+import { pizzas } from "../models/examples.js";
 import CustomError from "../classes/CustomError.js";
 
 function index(req, res) {
+  let data = [...pizzas];
+  if (req.query.search) {
+    const query = req.query.search.toLowerCase();
+    data = pizzas.filter((item) => item.name.toLowerCase().includes(query));
+  }
   const response = {
-    totalCount: examples.length,
-    data: [...examples],
+    totalCount: pizzas.length,
+    data,
   };
   res.json(response);
 }
 
 function show(req, res) {
   const id = parseInt(req.params.id);
-  const item = examples.find((item) => item.id === id);
+  const item = pizzas.find((item) => item.id === id);
   if (!item) {
     throw new CustomError("L'elemento non esiste", 404);
   }
@@ -20,26 +25,26 @@ function show(req, res) {
 
 function store(req, res) {
   let newId = 0;
-  for (let i = 0; i < examples.length; i++) {
-    if (examples[i].id > newId) {
-      newId = examples[i].id;
+  for (let i = 0; i < pizzas.length; i++) {
+    if (pizzas[i].id > newId) {
+      newId = pizzas[i].id;
     }
   }
   newId += 1;
-  console.log(req.body);
+  //console.log(req.body);
   // new data is in req.body
   const newItem = {
     id: newId,
     ...req.body,
   };
 
-  examples.push(newItem);
+  pizzas.push(newItem);
   res.status(201).json(newItem);
 }
 
 function update(req, res) {
   const id = parseInt(req.params.id);
-  const item = examples.find((item) => item.id === id);
+  const item = pizzas.find((item) => item.id === id);
   if (!item) {
     throw new CustomError("L'elemento non esiste", 404);
   }
@@ -56,9 +61,9 @@ function update(req, res) {
 }
 function destroy(req, res) {
   const id = parseInt(req.params.id);
-  const index = examples.findIndex((item) => item.id === id);
+  const index = pizzas.findIndex((item) => item.id === id);
   if (index !== -1) {
-    examples.splice(index, 1);
+    pizzas.splice(index, 1);
     res.sendStatus(204);
   } else {
     throw new CustomError("L'elemento non esiste", 404);

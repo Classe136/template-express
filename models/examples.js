@@ -1,14 +1,14 @@
-const examples = [
-  { id: 1, title: "Lorem ipsum dolor sit amet" },
-  { id: 2, title: "Consectetur adipiscing elit" },
-  { id: 3, title: "Sed do eiusmod tempor incididunt" },
-  { id: 4, title: "Ut labore et dolore magna aliqua" },
-  { id: 5, title: "Quis nostrud exercitation ullamco" },
-  { id: 6, title: "Laboris nisi ut aliquip ex ea commodo" },
-  { id: 7, title: "Duis aute irure dolor in reprehenderit" },
-  { id: 8, title: "In voluptate velit esse cillum dolore" },
-  { id: 9, title: "Eu fugiat nulla pariatur excepteur sint" },
-  { id: 10, title: "Occaecat cupidatat non proident sunt" },
+const ingredients = [
+  { id: 1, title: "pomodoro" },
+  { id: 2, title: "mozzarella" },
+  { id: 3, title: "aglio" },
+  { id: 4, title: "origano" },
+  { id: 5, title: "salame piccante" },
+  { id: 6, title: "mozzarella di bufala" },
+  { id: 7, title: "gorgonzola" },
+  { id: 8, title: "parmigiano" },
+  { id: 9, title: "ricotta" },
+  { id: 10, title: "funghi" },
 ];
 const pizzas = [
   {
@@ -58,4 +58,4 @@ const pizzas = [
     ],
   },
 ];
-export { pizzas };
+export { pizzas, ingredients };
