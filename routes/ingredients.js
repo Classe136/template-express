@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import { index } from "../controllers/ingredientsController.js";
+import { index } from "../controllers/ingredientController.js";
 //Rotte
 
 // Index - Read all

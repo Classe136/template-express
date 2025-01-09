@@ -4,7 +4,7 @@ import express from "express";
 import errorsHandler from "./middlewares/errorsHandler.js";
 import notFound from "./middlewares/notFound.js";
 import corsPolicy from "./middlewares/corsPolicy.js";
-import examplesRouter from "./routes/examples.js";
+import pizzasRouter from "./routes/pizzas.js";
 import ingredientsRouter from "./routes/ingredients.js";
 
 // create a server instance
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 //other routes
-app.use("/examples", examplesRouter);
+app.use("/pizzas", pizzasRouter);
 app.use("/ingredients", ingredientsRouter);
 
 app.use(errorsHandler);
