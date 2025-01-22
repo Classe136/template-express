@@ -1,14 +1,12 @@
-import { ingredients } from "../models/examples.js";
 import CustomError from "../classes/CustomError.js";
 
 function index(req, res) {
-  let data = [...ingredients];
-
-  const response = {
-    totalCount: data.length,
-    data,
-  };
-  res.json(response);
+  // let data = [...ingredients];
+  // const response = {
+  //   totalCount: data.length,
+  //   data,
+  // };
+  // res.json(response);
 }
 
 // function show(req, res) {

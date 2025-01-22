@@ -1,26 +1,48 @@
-import { pizzas } from "../models/examples.js";
+import connection from "../connection.js";
+
 import CustomError from "../classes/CustomError.js";
 
 function index(req, res) {
-  let data = [...pizzas];
-  if (req.query.search) {
-    const query = req.query.search.toLowerCase();
-    data = pizzas.filter((item) => item.name.toLowerCase().includes(query));
-  }
-  const response = {
-    totalCount: pizzas.length,
-    data,
-  };
-  res.json(response);
+  const sql = "SELECT * FROM `pizzas`";
+  connection.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ error: "Database query failed" });
+    // console.log(results);
+    let data = results;
+    const response = {
+      totalCount: results.length,
+      data,
+    };
+    res.json(response);
+  });
 }
-
 function show(req, res) {
   const id = parseInt(req.params.id);
-  const item = pizzas.find((item) => item.id === id);
-  if (!item) {
-    throw new CustomError("L'elemento non esiste", 404);
-  }
-  res.json({ success: true, item });
+
+  //prima query per prendere i dati della pizza
+  const sql = "SELECT * FROM `pizzas` WHERE `id` = ?";
+
+  connection.query(sql, [id], (err, results) => {
+    if (err) return res.status(500).json({ error: "Database query failed" });
+    const item = results[0];
+    if (!item) {
+      return res.status(404).json({ error: "L'elemento non esiste" });
+      //throw new CustomError("L'elemento non esiste", 404);
+    }
+
+    //seconda query per prendere gli ingredienti
+    const sqlIngredients = `SELECT ingredients.id, ingredients.name FROM ingredients
+JOIN ingredient_pizza ON ingredient_pizza.ingredient_id = ingredients.id
+WHERE ingredient_pizza.pizza_id = ?`;
+    connection.query(sqlIngredients, [id], (err, results) => {
+      console.log(results);
+      if (err) return res.status(500).json({ error: "Database query failed" });
+
+      //aggiungo la proprietà ingredients all'oggetto pizza
+      item.ingredients = results;
+
+      res.json({ success: true, item });
+    });
+  });
 }
 
 function store(req, res) {
@@ -44,10 +66,7 @@ function store(req, res) {
 
 function update(req, res) {
   const id = parseInt(req.params.id);
-  const item = pizzas.find((item) => item.id === id);
-  if (!item) {
-    throw new CustomError("L'elemento non esiste", 404);
-  }
+  //prima query per prendere i dati della pizza
 
   //console.log(req.body);
   for (key in item) {
@@ -62,12 +81,11 @@ function update(req, res) {
 function destroy(req, res) {
   const id = parseInt(req.params.id);
   const index = pizzas.findIndex((item) => item.id === id);
-  if (index !== -1) {
-    pizzas.splice(index, 1);
+  const sql = "DELETE * FROM `pizzas` WHERE `id` = ?";
+  connection.query(sql, [id], (err, results) => {
+    if (err) return res.status(500).json({ error: "Database query failed" });
     res.sendStatus(204);
-  } else {
-    throw new CustomError("L'elemento non esiste", 404);
-  }
+  });
 }
 
 export { index, show, store, update, destroy };
