@@ -1,7 +1,5 @@
 import connection from "../connection.js";
 
-import CustomError from "../classes/CustomError.js";
-
 function index(req, res) {
   const sql = "SELECT * FROM `pizzas`";
   connection.query(sql, (err, results) => {
